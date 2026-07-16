@@ -46,7 +46,7 @@ if (currentVersion !== APP_VERSION) {
 }
 
 const STORAGE_KEY = 'puzzle_players';
-const TOTAL_STAGES = 12;
+const TOTAL_STAGES = 117;
 
 const getGridSizeForLevel = (level) => {
     if (level <= 10) return 6;
@@ -57,9 +57,9 @@ const getGridSizeForLevel = (level) => {
     return 6; // levels 71-200
 };
 
-const ASSETS = Array.from({length: 12}, (_, i) => `assets/images/stage_${i+1}.jpeg`);
+const ASSETS = Array.from({length: 117}, (_, i) => `assets/images/stage_${i+1}.jpeg`);
 
-const BACKGROUND_IMAGES = Array.from({length: 12}, (_, i) => `assets/images/stage_${i+1}.jpeg`);
+const BACKGROUND_IMAGES = Array.from({length: 117}, (_, i) => `assets/images/stage_${i+1}.jpeg`);
 
 
 const CONFIG = {
