@@ -46,7 +46,7 @@ if (currentVersion !== APP_VERSION) {
 }
 
 const STORAGE_KEY = 'puzzle_players';
-const TOTAL_STAGES = 117;
+const TOTAL_STAGES = 5;
 
 const getGridSizeForLevel = (level) => {
     if (level <= 10) return 6;
