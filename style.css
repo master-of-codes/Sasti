@@ -507,11 +507,11 @@ canvas {
     margin: 0;
 }
 
-.install-stage_1 {
+.install-logo {
     transition: transform 0.2s;
 }
 
-.install-stage_1:hover {
+.install-logo:hover {
     transform: scale(1.1);
 }
 

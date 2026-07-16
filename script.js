@@ -46,7 +46,7 @@ if (currentVersion !== APP_VERSION) {
 }
 
 const STORAGE_KEY = 'puzzle_players';
-const TOTAL_STAGES = 5;
+const TOTAL_STAGES = 12;
 
 const getGridSizeForLevel = (level) => {
     if (level <= 10) return 6;
@@ -57,69 +57,9 @@ const getGridSizeForLevel = (level) => {
     return 6; // levels 71-200
 };
 
-let ASSETS = [];
-let BACKGROUND_IMAGES = [];
+const ASSETS = Array.from({length: 12}, (_, i) => `assets/images/stage_${i+1}.jpeg`);
 
-const IMAGE_MANIFEST_URL = 'assets/images/images_manifest.json';
-
-// Fisher-Yates shuffle
-const shuffleInPlace = (arr) => {
-    for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
-};
-
-// Create stage blocks: stages (1..TOTAL_STAGES) each get same count of images.
-// Input manifest images are shuffled randomly; then we assign evenly.
-const buildAssetsFromManifest = (manifestImages) => {
-    const images = Array.from(manifestImages || []).filter(Boolean);
-    const totalLevels = TOTAL_STAGES;
-
-    // Each stage should have equal number of levels.
-    // Since TOTAL_STAGES is exactly 41, and user asked "stage_1 to stage_n",
-    // we interpret as: use 1 unique image per stage (so each stage is equal).
-    // If you want multiple images per stage, set IMAGES_PER_STAGE.
-    const IMAGES_PER_STAGE = 1;
-
-    const needed = totalLevels * IMAGES_PER_STAGE;
-    if (images.length < needed) {
-        console.warn(`Not enough images. Have ${images.length}, need ${needed}. Some levels may repeat.`);
-    }
-
-    const shuffled = shuffleInPlace(images.slice());
-
-    // Repeat if not enough
-    while (shuffled.length < needed) {
-        shuffled.push(...shuffleInPlace(images.slice()));
-    }
-
-    const selected = shuffled.slice(0, needed);
-
-    // Expand to level array: ASSETS[levelIndex] maps directly to Level i.
-    // With IMAGES_PER_STAGE=1, it's 1:1.
-    ASSETS = selected.map((u) => u);
-    BACKGROUND_IMAGES = selected.map((u) => u);
-
-    // Safety: ensure length matches TOTAL_STAGES
-    ASSETS = ASSETS.slice(0, totalLevels);
-    BACKGROUND_IMAGES = BACKGROUND_IMAGES.slice(0, totalLevels);
-};
-
-const initImages = async () => {
-    try {
-        const res = await fetch(IMAGE_MANIFEST_URL, { cache: 'no-store' });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const list = await res.json();
-        buildAssetsFromManifest(list);
-    } catch (e) {
-        console.error('Image manifest load failed, falling back to stage_1..stage_n.', e);
-        ASSETS = Array.from({ length: TOTAL_STAGES }, (_, i) => `assets/images/stage_${i + 1}.jpeg`);
-        BACKGROUND_IMAGES = Array.from({ length: TOTAL_STAGES }, (_, i) => `assets/images/stage_${i + 1}.jpeg`);
-    }
-};
-
+const BACKGROUND_IMAGES = Array.from({length: 12}, (_, i) => `assets/images/stage_${i+1}.jpeg`);
 
 
 const CONFIG = {
@@ -241,11 +181,11 @@ const UI = {
         const installButton = document.getElementById('installButton');
         const cancelButton = document.getElementById('cancelButton');
         const pwaDialog = document.getElementById('pwaDialog');
-        const installstage_1 = document.getElementById('installstage_1');
+        const installLogo = document.getElementById('installLogo');
         let clickCount = 0, clickTimer;
 
-        if (installstage_1) {
-            installstage_1.addEventListener('click', () => {
+        if (installLogo) {
+            installLogo.addEventListener('click', () => {
                 clickCount++;
                 if (clickCount === 1) {
                     clickTimer = setTimeout(() => { clickCount = 0; }, 300);
@@ -1228,8 +1168,4 @@ const DownloadHandler = {
 };
 
 // ─── Boot ─────────────────────────────────────────────────────────────────────
-(async () => {
-    await initImages();
-    UI.init();
-})();
-
+UI.init();

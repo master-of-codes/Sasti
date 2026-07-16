@@ -1,7 +1,7 @@
 {
-  "name": "Sasti",
-  "short_name": "Sasti",
-  "description": "Sasti Puzzle Game",
+  "name": "Shastika",
+  "short_name": "Shastika",
+  "description": "Shastika Puzzle Game",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#1a0b1c",
@@ -10,13 +10,13 @@
   "scope": "./",
   "icons": [
     {
-      "src": "./assets/images/stage_1.jpeg",
+      "src": "./assets/images/logo.jpeg",
       "sizes": "192x192",
       "type": "image/jpeg",
       "purpose": "any maskable"
     },
     {
-      "src": "./assets/images/stage_1.jpeg",
+      "src": "./assets/images/logo.jpeg",
       "sizes": "512x512",
       "type": "image/jpeg",
       "purpose": "any maskable"

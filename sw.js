@@ -1,4 +1,4 @@
-const CACHE_NAME = 'Sasti-puzzle-v1';
+const CACHE_NAME = 'Shastika-puzzle-v1';
 const ASSETS = [
   './',
   './index.html',
